@@ -44,6 +44,8 @@ window.Game = (function() {
 		this.xMovement -= 0.21;
 		//this.pipeSet1.moveLeft(this.xMovement);
 		// Request next frame.
+
+		this.getPositions(this.el.find('.Pipe-set-1'));
 		window.requestAnimationFrame(this.onFrame);
 	};
 
@@ -72,6 +74,7 @@ window.Game = (function() {
 		this.pipeSet2.reset();
 		this.pipeSet3.reset();
 		this.pipeSet4.reset();
+		$('.Ground-loop').css('animation-play-state', 'running');
 	};
 
 	/**
@@ -90,6 +93,13 @@ window.Game = (function() {
 					scoreboardEl.removeClass('is-visible');
 					that.start();
 				});
+	};
+
+	Game.prototype.getPositions = function(el) {
+		var pos;
+		pos = $(el).position();
+		console.log(pos);
+		return pos;
 	};
 
 	/**

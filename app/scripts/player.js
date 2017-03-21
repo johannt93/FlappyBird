@@ -69,11 +69,7 @@ window.Player = (function() {
 			} else {
 				SPEED -= FLAP_SPEED;
 			}
-			/*
-			pModel.classList.remove("fly-up-animation");
-			void pModel.offsetWidth;
-			pModel.classList.add("fly-up-animation");
-			*/
+			
 			this.angle = 0; // Reset angle speed
 		};
 	}

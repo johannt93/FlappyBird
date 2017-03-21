@@ -142,23 +142,24 @@ body {
 	visibility: hidden;
 	width: 8.5em;
 	height: 100%;
+	bottom: 0%;
 }
 
 .Pipe-Top1 {
 	position: absolute;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	bottom: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 	transform: rotate(180deg);
-
 }
 
 .Pipe-Bottom1 {
 	position: absolute;
-	top: 65%;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	top: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 }
@@ -168,12 +169,14 @@ body {
 	visibility: hidden;
 	width: 8.5em;
 	height: 100%;
+	bottom: 10%;
 }
 
 .Pipe-Top2 {
 	position: absolute;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	bottom: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 	transform: rotate(180deg);
@@ -182,9 +185,9 @@ body {
 
 .Pipe-Bottom2 {
 	position: absolute;
-	top: 65%;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	top: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 }
@@ -194,12 +197,14 @@ body {
 	visibility: hidden;
 	width: 8.5em;
 	height: 100%;
+	bottom: -5%;
 }
 
 .Pipe-Top3 {
 	position: absolute;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	bottom: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 	transform: rotate(180deg);
@@ -208,9 +213,9 @@ body {
 
 .Pipe-Bottom3 {
 	position: absolute;
-	top: 65%;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	top: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 }
@@ -220,12 +225,14 @@ body {
 	visibility: hidden;
 	width: 8.5em;
 	height: 100%;
+	bottom: 25%;
 }
 
 .Pipe-Top4 {
 	position: absolute;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	bottom: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 	transform: rotate(180deg);
@@ -234,9 +241,9 @@ body {
 
 .Pipe-Bottom4 {
 	position: absolute;
-	top: 65%;
-	height: 35%;
+	height: 100%;
 	width: 100%;
+	top: 65%;
 	background-image: url("../images/pipe.png");
 	background-size: 100% 100%;
 }
