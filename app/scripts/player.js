@@ -7,6 +7,7 @@ window.Player = (function() {
 	// for 1024x576px canvas.
 	var SPEED = 0; // * 10 pixels per second
 	var MAX_SPEED = 65;
+	var MAX_FLIGHT_HEIGHT = 0;
 	var GRAVITY = 200;
 	var FLAP_SPEED = 70;
 	var CAP_FLIGH_SPEED = -60;
@@ -15,6 +16,7 @@ window.Player = (function() {
 	var INITIAL_POSITION_X = 30;
 	var INITIAL_POSITION_Y = 10;
 	var MAX_ROTATION = 90;
+	var OVER_LIMITS = false;
 
 	var Player = function(el, game) {
 		this.el = el;
@@ -43,6 +45,8 @@ window.Player = (function() {
 		this.pos.y += SPEED * delta;
 		
 		this.flap();
+
+		this.isTooHigh();
 		
 		//console.log("Speed: " + SPEED);
 		this.rotatePlayer();
@@ -62,28 +66,34 @@ window.Player = (function() {
 
 	Player.prototype.flap = function () {
 		document.getElementById("geme").onmousedown = function() {
-			//var pModel = document.getElementById("model");
 			if(SPEED >= -MAX_SPEED) {
 				SPEED = CAP_FLIGH_SPEED;
-				//console.log("speed is now: " + SPEED);
 			} else {
 				SPEED -= FLAP_SPEED;
 			}
-			
 			this.angle = 0; // Reset angle speed
 		};
+		
+	}
+
+	Player.prototype.isTooHigh = function() {
+		if(this.pos.y < MAX_FLIGHT_HEIGHT) {
+			OVER_LIMITS = true;
+		}
+		OVER_LIMITS = false;
 	}
 
 	Player.prototype.rotatePlayer = function() {
-		if(SPEED > 20 && this.angle < MAX_ROTATION) {	// If bird is falling down rotate down
-			this.angle += 4;
+		if(SPEED > 40 && this.angle < MAX_ROTATION) {	// If bird is falling down rotate down
+			this.angle += 7; 							// prev 4 and speed 50
 			this.playerModel.css('transform', 'rotate('+ this.angle + 'deg)');
+			this.playerModel.css('animation-play-state', 'paused');
 		} else if(SPEED <= 0) {							// If bird going up look up
 			this.angle = -25;
 			this.playerModel.css('transform', 'rotate('+ this.angle + 'deg)');
+			this.playerModel.css('animation-play-state', 'running');
 		}
 	}
 
 	return Player;
-
 })();

@@ -14,20 +14,27 @@
 	-webkit-animation-fill-mode: forwards;
 	width: 5em;
 	height: 4em;
-	background-image: url("../images/bird.png");
+	background-image: url("../images/bird-center.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
-}
-/*
-.fly-up-animation {
-	animation: fly-up 0.3s 1;
+	animation-play-state: paused;
+	animation-name: flap-wings;
+	animation-duration: 0.12s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 }
 
-.fly-down-animation {
-	animation-name: dive-down;
-	animation-duration: 0.3s;
-	animation-delay: 0.4s;
-}*/
+@keyframes flap-wings {
+	from {
+		background-image: url("../images/bird-down.png");
+	}
+	50% {
+		background-image: url("../images/bird-center.png");
+	}
+	to {
+		background-image: url("../images/bird.png");
+	}
+}
 
 .Player-wings {
 	position: absolute;
@@ -52,6 +59,32 @@
 	}
 }
 
+.Score-count {
+	position: absolute;
+	left: 47%;
+	top: 5em;
+	height: 5em;
+	width: 5em;
+	margin-left: 0;
+	box-sizing: border-box;
+	text-align: center;
+	-webkit-transform: translate(0, -40em);
+	-webkit-transition: -webkit-transform 0.5s;
+}
+
+.Score-count h1 {
+	color: white;
+	font-size: 4em;
+	line-height: 0;
+}
+
+/**
+* Reset transform to animate it into the correct spot on the screen.
+*/
+.Score-count.is-visible {
+	-webkit-transform: none;
+}
+
 .Scoreboard {
 	position: absolute;
 	left: 50%;
@@ -60,10 +93,22 @@
 	width: 40em;
 	margin-left: -20em;
 	box-sizing: border-box;
-	background: purple;
+	background: green;
+	border-radius: 20%;
 	text-align: center;
 	-webkit-transform: translate(0, -40em);
 	-webkit-transition: -webkit-transform 0.5s;
+}
+
+.Scoreboard h2 {
+	font-size: 3em;
+	line-height: 0;
+}
+
+.Scoreboard h1 {
+	color: white;
+	font-size: 3em;
+	line-height: 0;
 }
 
 /**
@@ -74,7 +119,7 @@
 }
 
 .Scoreboard-restart {
-	margin-top: 20em;
+	margin-top: 10em;
 	font-size: inherit;
 	padding: 0.4em 1.5em;
 	border: 0.2em solid white;

@@ -1,0 +1,18 @@
+.Score-count {
+	position: absolute;
+	left: 47%;
+	top: 5em;
+	height: 5em;
+	width: 5em;
+	margin-left: 0;
+	box-sizing: border-box;
+	text-align: center;
+	-webkit-transform: translate(0, -40em);
+	-webkit-transition: -webkit-transform 0.5s;
+}
+
+.Score-count h1 {
+	color: white;
+	font-size: 4em;
+	line-height: 0;
+}
