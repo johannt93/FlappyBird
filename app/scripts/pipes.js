@@ -19,7 +19,7 @@ window.Pipes = (function() {
         //this.changeHeight();
         this.moveLeft(this.posX);
 	};
-
+    
     Pipes.prototype.moveLeft = function(xMovement) {
         if(this.posX > (0 - 8.5)) {
             this.el.css('transform', 'translateZ(0) translateX('+ this.posX + 'em)');

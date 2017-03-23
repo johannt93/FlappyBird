@@ -34,9 +34,8 @@ window.Game = (function() {
 		this.pipeSet2 = new window.Pipes(this.pipeSetEl2, this, 130.0);
 		this.pipeSet3 = new window.Pipes(this.pipeSetEl3, this, 157.6);
 		this.pipeSet4 = new window.Pipes(this.pipeSetEl4, this, 185.2);
+		this.scoreboard = new window.Score(this.el.find('.Scoreboard'), this);
 		this.isPlaying = false;
-		this.score = 0;
-		this.bestScore = 0; // TODO
 
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
@@ -62,7 +61,6 @@ window.Game = (function() {
 		this.pipeSet2.onFrame(delta);
 		this.pipeSet3.onFrame(delta);
 		this.pipeSet4.onFrame(delta);
-		this.xMovement -= 0.21;
 		//this.pipeSet1.moveLeft(this.xMovement);
 		// Request next frame.
 
@@ -77,11 +75,8 @@ window.Game = (function() {
 			this.gameover();
 		}
 
-		this.calcScore(this.pipeSetEl1);
-		this.calcScore(this.pipeSetEl2);
-		this.calcScore(this.pipeSetEl3);
-		this.calcScore(this.pipeSetEl4);
-		//this.getPositions(this.el.find('.Pipe-set-1'));
+		this.scoreboard.calcScore(this.pipeSetEl1, this.pipeSetEl2, this.pipeSetEl3, this.pipeSetEl4);
+		
 		window.requestAnimationFrame(this.onFrame);
 	};
 
@@ -90,14 +85,11 @@ window.Game = (function() {
 	 */
 	Game.prototype.start = function() {
 		this.reset();
-		this.pipeSetEl1.css('visibility', 'visible'); // TODO MAKE PIPESETEL variables
+		this.pipeSetEl1.css('visibility', 'visible');
 		this.pipeSetEl2.css('visibility', 'visible');
 		this.pipeSetEl3.css('visibility', 'visible');
 		this.pipeSetEl4.css('visibility', 'visible');
-		var that = this;
-		var scoreCountEl = this.el.find('.Score-count');
-		scoreCountEl
-			.addClass('is-visible')
+		this.scoreboard.showCounter();
 
 		// Restart the onFrame loop
 		this.lastFrame = +new Date() / 1000;
@@ -110,9 +102,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.reset = function() {
 		this.player.reset();
-		this.score = 0;
-		document.querySelector('.Score-count h1').innerHTML = this.score;
-		document.querySelector('.Scoreboard h1').innerHTML = "Score: " + this.score;
+		this.scoreboard.reset();
 		this.pipeSet1.reset();
 		this.pipeSet2.reset();
 		this.pipeSet3.reset();
@@ -126,20 +116,11 @@ window.Game = (function() {
 	Game.prototype.gameover = function() {
 		this.isPlaying = false;
 		$('.Ground-loop').css('animation-play-state', 'paused');
-		// Should be refactored into a Scoreboard class.
-		var that = this;
-		var scoreboardEl = this.el.find('.Scoreboard');
-		scoreboardEl
-			.addClass('is-visible')
-			.find('.Scoreboard-restart')
-				.one('click', function() {
-					scoreboardEl.removeClass('is-visible');
-					that.start();
-				});
-		document.querySelector('.Scoreboard h1').innerHTML = "Score: " + this.score;
+		
+		this.scoreboard.showBoard();
 	};
 
-	Game.prototype.checkPlayerPipeCollision = function(pipeEl) {
+	Game.prototype.checkPlayerPipeCollision = function(pipeEl) {	// Lanad af http://stackoverflow.com/questions/14012766/detecting-whether-two-divs-overlap 
 		var playerEl = this.playerEl;
 		var playerX = playerEl.offset().left;
 		var playerY = playerEl.offset().top;
@@ -162,16 +143,6 @@ window.Game = (function() {
 		}
 	}
 
-	Game.prototype.calcScore = function(pipeSetEl) {
-		var playerX = this.playerEl.offset().left;
-		var pipeSetX = pipeSetEl.offset().left;
-
-		if(playerX == pipeSetX) {
-			this.score += 1;
-			document.querySelector('.Score-count h1').innerHTML = this.score;
-		}
-	}
-
 	/**
 	 * Some shared constants.
 	 */
@@ -180,5 +151,3 @@ window.Game = (function() {
 
 	return Game;
 })();
-
-

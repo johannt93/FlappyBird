@@ -72,8 +72,7 @@ window.Player = (function() {
 				SPEED -= FLAP_SPEED;
 			}
 			this.angle = 0; // Reset angle speed
-		};
-		
+		};		
 	}
 
 	Player.prototype.isTooHigh = function() {
@@ -86,11 +85,11 @@ window.Player = (function() {
 	Player.prototype.rotatePlayer = function() {
 		if(SPEED > 40 && this.angle < MAX_ROTATION) {	// If bird is falling down rotate down
 			this.angle += 7; 							// prev 4 and speed 50
-			this.playerModel.css('transform', 'rotate('+ this.angle + 'deg)');
+			this.playerModel.css('transform', 'translateZ(0) rotate('+ this.angle + 'deg)');
 			this.playerModel.css('animation-play-state', 'paused');
 		} else if(SPEED <= 0) {							// If bird going up look up
 			this.angle = -25;
-			this.playerModel.css('transform', 'rotate('+ this.angle + 'deg)');
+			this.playerModel.css('transform', 'translateZ(0) rotate('+ this.angle + 'deg)');
 			this.playerModel.css('animation-play-state', 'running');
 		}
 	}

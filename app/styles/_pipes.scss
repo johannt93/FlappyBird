@@ -1,0 +1,114 @@
+.Pipe-set-1 {
+	position: absolute;
+	visibility: hidden;
+	width: 8.5em;
+	height: 100%;
+	bottom: 0%;
+	transform: translateZ(0);
+}
+
+.Pipe-Top1 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+	transform: translateZ(0) rotate(180deg);
+}
+
+.Pipe-Bottom1 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+}
+
+.Pipe-set-2 {
+	position: absolute;
+	visibility: hidden;
+	width: 8.5em;
+	height: 100%;
+	bottom: 10%;
+	transform: translateZ(0);
+}
+
+.Pipe-Top2 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+	transform: translateZ(0) rotate(180deg);
+
+}
+
+.Pipe-Bottom2 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+}
+
+.Pipe-set-3 {
+	position: absolute;
+	visibility: hidden;
+	width: 8.5em;
+	height: 100%;
+	bottom: -5%;
+	transform: translateZ(0);
+}
+
+.Pipe-Top3 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+	transform: translateZ(0) rotate(180deg);
+
+}
+
+.Pipe-Bottom3 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+}
+
+.Pipe-set-4 {
+	position: absolute;
+	visibility: hidden;
+	width: 8.5em;
+	height: 100%;
+	bottom: 25%;
+	transform: translateZ(0);
+}
+
+.Pipe-Top4 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+	transform: translateZ(0) rotate(180deg);
+
+}
+
+.Pipe-Bottom4 {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 65%;
+	background-image: url("../images/pipe.png");
+	background-size: 100% 100%;
+}
