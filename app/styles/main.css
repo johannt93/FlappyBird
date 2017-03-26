@@ -36,6 +36,21 @@
 	}
 }
 
+.Start-message {
+	position: absolute;
+	left: 40%;
+	-webkit-transform: translateZ(0) translate(0, 10em);
+	-webkit-transition: -webkit-transform 0.5s;
+}
+
+.Start-message h1 {
+	color: white;
+}
+
+.Start-message.is-visible {
+	-webkit-transform: translateZ(0) translate(0, -40em);
+}
+
 .Score-count {
 	position: absolute;
 	left: 47%;
@@ -45,7 +60,7 @@
 	margin-left: 0;
 	box-sizing: border-box;
 	text-align: center;
-	-webkit-transform: translate(0, -40em);
+	-webkit-transform: translateZ(0) translate(0, -40em);
 	-webkit-transition: -webkit-transform 0.5s;
 }
 
@@ -73,7 +88,7 @@
 	background: green;
 	border-radius: 20%;
 	text-align: center;
-	-webkit-transform: translate(0, -40em);
+	-webkit-transform: translateZ(0) translate(0, -40em);
 	-webkit-transition: -webkit-transform 0.5s;
 }
 
@@ -96,7 +111,7 @@
 }
 
 .Scoreboard-restart {
-	margin-top: 10em;
+	margin-top: 4em;
 	font-size: inherit;
 	padding: 0.4em 1.5em;
 	border: 0.2em solid white;
@@ -152,11 +167,21 @@ body {
 
 @keyframes move-ground {
 	from {
-		transform: translateX(0px);
+		transform: translateZ(0) translateX(0px);
 	}
 	to {
-		transform: translateX(-260px);
+		transform: translateZ(0) translateX(-260px);
 	}
+}
+
+.Mute-button {
+	position: absolute;
+	width: 2.5em;
+	height: 2.5em;
+	left: 45%;
+	background: url("../images/sound-on.png");
+	background-size: 100% 100%;
+	cursor: pointer;
 }
 
 .Pipe-set-1 {

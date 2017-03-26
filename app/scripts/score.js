@@ -6,6 +6,7 @@ window.Score = (function() {
         this.game = game;
         this.score = 0;
         this.highScore = 0;
+		this.scoredSound = "../sounds/score.wav";
     };
 
     Score.prototype.reset = function() {
@@ -16,9 +17,15 @@ window.Score = (function() {
         var that = this.game;
 		var scoreboardEl = this.el;
 		scoreboardEl
+			.find('.Mute-button')
+			.on('click', function() {
+				that.muteSounds();
+			});
+		scoreboardEl
 			.addClass('is-visible')
 			.find('.Scoreboard-restart')
 				.one('click', function() {
+					scoreboardEl.find('.Mute-button').off('click');
 					scoreboardEl.removeClass('is-visible');
 					that.start();
 				});
@@ -42,10 +49,20 @@ window.Score = (function() {
 
 		if(playerX == pipeSetX1 || playerX == pipeSetX2 || playerX == pipeSetX3 || playerX == pipeSetX4) {
 			this.score += 1;
+			this.playScoreSound();
 			document.querySelector('.Score-count h1').innerHTML = this.score;
 			if(this.score > this.highScore) {
 				this.highScore = this.score;
 			}
+		}
+	}
+
+	Score.prototype.playScoreSound = function() {
+		if(!this.game.soundsMuted) {
+			var audio = new Audio();
+			audio.src = this.scoredSound;
+			audio.loop = false;
+			audio.play();
 		}
 	}
 

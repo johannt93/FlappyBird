@@ -1,8 +1,9 @@
 
 window.Game = (function() {
 	'use strict';
-	
-	var frontOfPipe = true;
+
+	var Controls = window.Controls;
+	var startInput = false;
 
 	/**
 	 * Main game class.
@@ -19,7 +20,7 @@ window.Game = (function() {
 		this.pipeSetEl3 = this.el.find('.Pipe-set-3');
 		this.pipeSetEl4 = this.el.find('.Pipe-set-4');
 
-		// EVERY SINGLE PIPE ELEMENT:
+		// EVERY PIPE ELEMENT:
 		this.pipeTop1 = this.el.find('.Pipe-Top1');
 		this.pipeBot1 = this.el.find('.Pipe-Bottom1');
 		this.pipeTop2 = this.el.find('.Pipe-Top2');
@@ -34,8 +35,13 @@ window.Game = (function() {
 		this.pipeSet2 = new window.Pipes(this.pipeSetEl2, this, 130.0);
 		this.pipeSet3 = new window.Pipes(this.pipeSetEl3, this, 157.6);
 		this.pipeSet4 = new window.Pipes(this.pipeSetEl4, this, 185.2);
+
 		this.scoreboard = new window.Score(this.el.find('.Scoreboard'), this);
+		this.hitSound = "../sounds/hit.wav";
 		this.isPlaying = false;
+		this.muteBtn = document.getElementById('mutebtn');
+		this.soundsMuted = false;
+		this.run = false;
 
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
@@ -54,59 +60,62 @@ window.Game = (function() {
 		var now = +new Date() / 1000,
 				delta = now - this.lastFrame;
 		this.lastFrame = now;
+		this.waitForInput();
+		if(this.run) {
+			// Update game entities.
+			this.player.onFrame(delta);
+			this.pipeSet1.onFrame(delta);
+			this.pipeSet2.onFrame(delta);
+			this.pipeSet3.onFrame(delta);
+			this.pipeSet4.onFrame(delta);
+			//this.pipeSet1.moveLeft(this.xMovement);
+			// Request next frame.
+			
+			if(this.hasImpactedPipe()) {
+				this.player.isAlive = false;
+			}
 
-		// Update game entities.
-		this.player.onFrame(delta);
-		this.pipeSet1.onFrame(delta);
-		this.pipeSet2.onFrame(delta);
-		this.pipeSet3.onFrame(delta);
-		this.pipeSet4.onFrame(delta);
-		//this.pipeSet1.moveLeft(this.xMovement);
-		// Request next frame.
-
-		if( this.checkPlayerPipeCollision(this.pipeTop1) ||
-			this.checkPlayerPipeCollision(this.pipeBot1) ||
-			this.checkPlayerPipeCollision(this.pipeTop2) ||
-			this.checkPlayerPipeCollision(this.pipeBot2) ||
-			this.checkPlayerPipeCollision(this.pipeTop3) ||
-			this.checkPlayerPipeCollision(this.pipeBot3) ||
-			this.checkPlayerPipeCollision(this.pipeTop4) ||
-			this.checkPlayerPipeCollision(this.pipeBot4) ) {
-			this.gameover();
+			this.scoreboard.calcScore(this.pipeSetEl1, this.pipeSetEl2, this.pipeSetEl3, this.pipeSetEl4);
 		}
-
-		this.scoreboard.calcScore(this.pipeSetEl1, this.pipeSetEl2, this.pipeSetEl3, this.pipeSetEl4);
-		
 		window.requestAnimationFrame(this.onFrame);
 	};
+
+	Game.prototype.waitForInput = function() {
+		if(Controls.keys.space) {
+			this.run = true;
+			this.showPipes();
+			this.scoreboard.showCounter();
+			this.hideStartMsg();
+		}
+	}
 
 	/**
 	 * Starts a new game.
 	 */
 	Game.prototype.start = function() {
-		this.reset();
-		this.pipeSetEl1.css('visibility', 'visible');
-		this.pipeSetEl2.css('visibility', 'visible');
-		this.pipeSetEl3.css('visibility', 'visible');
-		this.pipeSetEl4.css('visibility', 'visible');
-		this.scoreboard.showCounter();
+		this.reset();		
 
 		// Restart the onFrame loop
 		this.lastFrame = +new Date() / 1000;
 		window.requestAnimationFrame(this.onFrame);
-		this.isPlaying = true;
+		this.isPlaying = true;	
+		//this.muteBtn.addEventListener("click", this.muteSounds());	
 	};
 
 	/**
 	 * Resets the state of the game so a new game can be started.
 	 */
 	Game.prototype.reset = function() {
+		this.hidePipes();
+		this.resetInterface();
+		this.showStartMsg();
 		this.player.reset();
 		this.scoreboard.reset();
 		this.pipeSet1.reset();
 		this.pipeSet2.reset();
 		this.pipeSet3.reset();
 		this.pipeSet4.reset();
+		this.run = false;
 		$('.Ground-loop').css('animation-play-state', 'running');
 	};
 
@@ -141,8 +150,82 @@ window.Game = (function() {
 		} else {
 			return true;
 		}
+	};
+
+	Game.prototype.hasImpactedPipe = function() {
+		if( this.checkPlayerPipeCollision(this.pipeTop1) ||
+			this.checkPlayerPipeCollision(this.pipeBot1) ||
+			this.checkPlayerPipeCollision(this.pipeTop2) ||
+			this.checkPlayerPipeCollision(this.pipeBot2) ||
+			this.checkPlayerPipeCollision(this.pipeTop3) ||
+			this.checkPlayerPipeCollision(this.pipeBot3) ||
+			this.checkPlayerPipeCollision(this.pipeTop4) ||
+			this.checkPlayerPipeCollision(this.pipeBot4) ) {
+				this.playHitSound();
+				return true;
+		} else {
+			return false;
+		}
+	};
+
+	Game.prototype.playHitSound = function() {
+		if(!this.soundsMuted) {
+			var audio = new Audio();
+			if(this.player.isAlive) {
+				audio.src = this.hitSound;
+				audio.loop = false;
+				audio.play();
+			}
+		}
+	};
+
+	Game.prototype.muteSounds = function() {
+		if(this.soundsMuted) {
+			this.soundsMuted = false;
+			this.muteBtn.style.backgroundImage = "url(../images/sound-on.png";
+		} else {
+			this.soundsMuted = true;
+			this.muteBtn.style.backgroundImage = "url(../images/sound-off.png";
+		}
+	};
+
+	Game.prototype.hidePipes = function() {
+		this.pipeSetEl1.css('visibility', 'hidden');
+		this.pipeSetEl2.css('visibility', 'hidden');
+		this.pipeSetEl3.css('visibility', 'hidden');
+		this.pipeSetEl4.css('visibility', 'hidden');
+	};
+
+	Game.prototype.showPipes = function() {
+		this.pipeSetEl1.css('visibility', 'visible');
+		this.pipeSetEl2.css('visibility', 'visible');
+		this.pipeSetEl3.css('visibility', 'visible');
+		this.pipeSetEl4.css('visibility', 'visible');
+	};
+
+	Game.prototype.resetInterface = function() {
+		this.playerEl.css('transform', 'translateZ(0) translate(30em, 10em)');
+		this.player.playerModel.css('transform', 'translateZ(0) rotate(0deg)');
+		var that = this;
+		var scoreCountEl = this.el.find('.Score-count');
+		scoreCountEl
+			.removeClass('is-visible')
+	};
+
+	Game.prototype.hideStartMsg = function() {
+		var that = this;
+		var msgEl = this.el.find('.Start-message');
+		msgEl
+			.addClass('is-visible')
 	}
 
+	Game.prototype.showStartMsg = function() {
+		var that = this;
+		var msgEl = this.el.find('.Start-message');
+		msgEl
+			.removeClass('is-visible')
+	}
+	
 	/**
 	 * Some shared constants.
 	 */

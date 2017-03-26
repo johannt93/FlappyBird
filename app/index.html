@@ -25,10 +25,9 @@
         <![endif]-->
 
         <div class="GameCanvas" id="geme">
-            <div class="Player" id="player">
-                <div class="Player-model" id="model"></div>
+            <div class="Start-message">
+                <h1>Tap space to flap wings</h1>
             </div>
-
             <div class="Pipe-set-1">
                 <div class="Pipe-Top1" id="top-pipe-1"></div>
                 <div class="Pipe-Bottom1" id="bottom-pipe-2"></div>
@@ -47,6 +46,10 @@
             <div class="Pipe-set-4">
                 <div class="Pipe-Top4"></div>
                 <div class="Pipe-Bottom4"></div>
+            </div>           
+            
+            <div class="Player" id="player">
+                <div class="Player-model" id="model"></div>
             </div>
 
             <div class="Score-count">
@@ -58,6 +61,7 @@
             <div class="Scoreboard">
                 <h2>Game over</h2>
                 <h1></h1>
+                <button class="Mute-button" id="mutebtn"></button>
                 <button class="Scoreboard-restart">
                     <span class="Scoreboard-restartText">Restart</span>
                 </button>
