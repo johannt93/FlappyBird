@@ -86,19 +86,11 @@ window.Player = (function() {
 		if(SPEED > 40 && this.angle < MAX_ROTATION) {	// If bird is falling down rotate down
 			this.angle += 7; 							// prev 4 and speed 50
 			this.playerModel.css('transform', 'translateZ(0) rotate('+ this.angle + 'deg)');
-			this.playerModel.css('animation-play-state', 'paused');
+			this.playerModel.css('animation-play-state', 'paused'); // Pausing wing flap animation
 		} else if(SPEED <= 0) {							// If bird going up look up
 			this.angle = -25;
 			this.playerModel.css('transform', 'translateZ(0) rotate('+ this.angle + 'deg)');
 			this.playerModel.css('animation-play-state', 'running');
-		}
-	};
-
-	Player.prototype.initialFlap = function() {
-		if(SPEED >= -MAX_SPEED) {
-			SPEED = CAP_FLIGH_SPEED;
-		} else {
-			SPEED -= FLAP_SPEED;
 		}
 	};
 

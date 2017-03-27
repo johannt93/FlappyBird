@@ -1,8 +1,8 @@
 .Player {
 	position: absolute;
-	width: 5em;
-	height: 4em;
-	transform: translate(30em, 10em);
+	width: 6em;
+	height: 5em;
+	transform: translateZ(0) translate(30em, 10em);
 	animation: none;
 	animation-fill-mode: forwards;
 }
@@ -12,27 +12,29 @@
 	/*transition: all 0.3s;*/
 	-webkit-animation-duration: 1s;
 	-webkit-animation-fill-mode: forwards;
-	width: 5em;
-	height: 4em;
-	background-image: url("../images/bird-center.png");
+	width: 6em;
+	height: 5em;
+	background-image: url("../images/fatman-center.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	animation-play-state: paused;
-	animation-name: flap-wings;
-	animation-duration: 0.12s;
+	animation-name: fly;
+	animation-duration: 0.2s;
 	animation-iteration-count: infinite;
-	animation-direction: alternate;
 }
 
-@keyframes flap-wings {
+@keyframes fly {
 	from {
-		background-image: url("../images/bird-down.png");
+		background-image: url("../images/fatman-center.png");
 	}
-	50% {
-		background-image: url("../images/bird-center.png");
+	25% {
+		background-image: url("../images/fatman-up.png");
+	}
+	75% {
+		background-image: url("../images/fatman-center.png");
 	}
 	to {
-		background-image: url("../images/bird.png");
+		background-image: url("../images/fatman-down.png");
 	}
 }
 
@@ -51,9 +53,25 @@
 	-webkit-transform: translateZ(0) translate(0, -40em);
 }
 
+.Logo-text {
+	position: absolute;
+	width: 40em;
+	height: 8em;
+	left: 30%;
+	top: 3%;
+	background-image: url('../images/logo-text.png');
+	background-size: 100% 100%;
+	transform: translateZ(0) translate(0, 0);
+	transition: transform 0.5s;
+}
+
+.Logo-text.is-visible {
+	transform: translateZ(0) translate(0, -40em);
+}
+
 .Score-count {
 	position: absolute;
-	left: 47%;
+	left: 48%;
 	top: 5em;
 	height: 5em;
 	width: 5em;
@@ -85,8 +103,6 @@
 	width: 40em;
 	margin-left: -20em;
 	box-sizing: border-box;
-	background: green;
-	border-radius: 20%;
 	text-align: center;
 	-webkit-transform: translateZ(0) translate(0, -40em);
 	-webkit-transition: -webkit-transform 0.5s;
@@ -118,8 +134,9 @@
 	background: none;
 	cursor: pointer;
 }
+
 .Scoreboard-restartText {
-	font-family: 'Comic Sans MS', serif;
+	font-family: 'Verdana', serif;
 	font-size: 2.4em;
 	color: white;
 }
@@ -198,7 +215,7 @@ body {
 	height: 100%;
 	width: 100%;
 	bottom: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 	transform: translateZ(0) rotate(180deg);
 }
@@ -208,7 +225,7 @@ body {
 	height: 100%;
 	width: 100%;
 	top: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 }
 
@@ -226,7 +243,7 @@ body {
 	height: 100%;
 	width: 100%;
 	bottom: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 	transform: translateZ(0) rotate(180deg);
 
@@ -237,7 +254,7 @@ body {
 	height: 100%;
 	width: 100%;
 	top: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 }
 
@@ -255,7 +272,7 @@ body {
 	height: 100%;
 	width: 100%;
 	bottom: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 	transform: translateZ(0) rotate(180deg);
 
@@ -266,7 +283,7 @@ body {
 	height: 100%;
 	width: 100%;
 	top: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 }
 
@@ -284,7 +301,7 @@ body {
 	height: 100%;
 	width: 100%;
 	bottom: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 	transform: translateZ(0) rotate(180deg);
 
@@ -295,6 +312,6 @@ body {
 	height: 100%;
 	width: 100%;
 	top: 65%;
-	background-image: url("../images/pipe.png");
+	background-image: url("../images/kryptonite.png");
 	background-size: 100% 100%;
 }

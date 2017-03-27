@@ -38,10 +38,15 @@ window.Game = (function() {
 
 		this.scoreboard = new window.Score(this.el.find('.Scoreboard'), this);
 		this.hitSound = "../sounds/hit.wav";
+		this.music = "../sounds/superfatman.wav";
+		this.backgroundTrack = new Audio();
+		this.backgroundTrack.src = "../sounds/superfatman.wav";
+		this.backgroundTrack.loop = true;
 		this.isPlaying = false;
 		this.muteBtn = document.getElementById('mutebtn');
 		this.soundsMuted = false;
 		this.run = false;
+		this.playerAlive = true;
 
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
@@ -73,8 +78,8 @@ window.Game = (function() {
 			
 			if(this.hasImpactedPipe()) {
 				this.player.isAlive = false;
+				this.playerAlive = false;
 			}
-
 			this.scoreboard.calcScore(this.pipeSetEl1, this.pipeSetEl2, this.pipeSetEl3, this.pipeSetEl4);
 		}
 		window.requestAnimationFrame(this.onFrame);
@@ -86,6 +91,7 @@ window.Game = (function() {
 			this.showPipes();
 			this.scoreboard.showCounter();
 			this.hideStartMsg();
+			this.hideLogo();
 		}
 	}
 
@@ -93,8 +99,10 @@ window.Game = (function() {
 	 * Starts a new game.
 	 */
 	Game.prototype.start = function() {
-		this.reset();		
-
+		this.reset();
+		if(!this.soundsMuted) {
+			this.backgroundTrack.play();
+		}
 		// Restart the onFrame loop
 		this.lastFrame = +new Date() / 1000;
 		window.requestAnimationFrame(this.onFrame);
@@ -109,12 +117,14 @@ window.Game = (function() {
 		this.hidePipes();
 		this.resetInterface();
 		this.showStartMsg();
+		this.showLogo();
 		this.player.reset();
 		this.scoreboard.reset();
 		this.pipeSet1.reset();
 		this.pipeSet2.reset();
 		this.pipeSet3.reset();
 		this.pipeSet4.reset();
+		this.playerAlive = true;
 		this.run = false;
 		$('.Ground-loop').css('animation-play-state', 'running');
 	};
@@ -129,7 +139,8 @@ window.Game = (function() {
 		this.scoreboard.showBoard();
 	};
 
-	Game.prototype.checkPlayerPipeCollision = function(pipeEl) {	// Lanad af http://stackoverflow.com/questions/14012766/detecting-whether-two-divs-overlap 
+	// Lanad af http://stackoverflow.com/questions/14012766/detecting-whether-two-divs-overlap
+	Game.prototype.checkPlayerPipeCollision = function(pipeEl) {
 		var playerEl = this.playerEl;
 		var playerX = playerEl.offset().left;
 		var playerY = playerEl.offset().top;
@@ -168,6 +179,20 @@ window.Game = (function() {
 		}
 	};
 
+	Game.prototype.playBackgroundMusic = function() {
+		if(this.backgroundTrack.currentTime == 0) {
+			this.backgroundTrack.play();
+		}
+	}
+
+	Game.prototype.togglePause = function(track) {
+		if(this.backgroundTrack.paused) {
+			this.backgroundTrack.play();
+		} else {
+			this.backgroundTrack.pause();
+		}
+	}
+
 	Game.prototype.playHitSound = function() {
 		if(!this.soundsMuted) {
 			var audio = new Audio();
@@ -183,9 +208,11 @@ window.Game = (function() {
 		if(this.soundsMuted) {
 			this.soundsMuted = false;
 			this.muteBtn.style.backgroundImage = "url(../images/sound-on.png";
+			this.togglePause();
 		} else {
 			this.soundsMuted = true;
 			this.muteBtn.style.backgroundImage = "url(../images/sound-off.png";
+			this.togglePause();
 		}
 	};
 
@@ -223,6 +250,20 @@ window.Game = (function() {
 		var that = this;
 		var msgEl = this.el.find('.Start-message');
 		msgEl
+			.removeClass('is-visible')
+	}
+
+	Game.prototype.hideLogo = function() {
+		var that = this;
+		var logoEl = this.el.find('.Logo-text');
+		logoEl
+			.addClass('is-visible')
+	}
+
+	Game.prototype.showLogo = function() {
+		var that = this;
+		var logoEl = this.el.find('.Logo-text');
+		logoEl
 			.removeClass('is-visible')
 	}
 	

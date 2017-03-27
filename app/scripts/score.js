@@ -48,11 +48,13 @@ window.Score = (function() {
 		var pipeSetX4 = pipeSetEl4.offset().left;
 
 		if(playerX == pipeSetX1 || playerX == pipeSetX2 || playerX == pipeSetX3 || playerX == pipeSetX4) {
-			this.score += 1;
-			this.playScoreSound();
-			document.querySelector('.Score-count h1').innerHTML = this.score;
-			if(this.score > this.highScore) {
-				this.highScore = this.score;
+			if(this.game.playerAlive) {
+				this.score += 1;
+				this.playScoreSound();
+				document.querySelector('.Score-count h1').innerHTML = this.score;
+				if(this.score > this.highScore) {
+					this.highScore = this.score;
+				}
 			}
 		}
 	}
