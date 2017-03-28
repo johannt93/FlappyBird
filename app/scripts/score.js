@@ -48,7 +48,7 @@ window.Score = (function() {
 		var pipeSetX4 = pipeSetEl4.offset().left;
 
 		if(playerX == pipeSetX1 || playerX == pipeSetX2 || playerX == pipeSetX3 || playerX == pipeSetX4) {
-			if(this.game.playerAlive) {
+			if(this.game.player.isAlive) {
 				this.score += 1;
 				this.playScoreSound();
 				document.querySelector('.Score-count h1').innerHTML = this.score;

@@ -39,10 +39,10 @@ window.Player = (function() {
 	};
 
 	Player.prototype.onFrame = function(delta) {
-		if(SPEED + (GRAVITY * delta) < MAX_SPEED) { // IF SPEED EXCEEDS MAX SPEEDS then cap it at the limit
+		if(SPEED + (GRAVITY * delta) < MAX_SPEED) { // The gravity part
 			SPEED += GRAVITY * delta;
 		} else {
-			SPEED = MAX_SPEED;
+			SPEED = MAX_SPEED;	// IF speed exceeds max speed then cap it at the limit
 		}
 		this.pos.y += SPEED * delta;
 

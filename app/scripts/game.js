@@ -46,7 +46,6 @@ window.Game = (function() {
 		this.muteBtn = document.getElementById('mutebtn');
 		this.soundsMuted = false;
 		this.run = false;
-		this.playerAlive = true;
 
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
@@ -78,7 +77,6 @@ window.Game = (function() {
 			
 			if(this.hasImpactedPipe()) {
 				this.player.isAlive = false;
-				this.playerAlive = false;
 			}
 			this.scoreboard.calcScore(this.pipeSetEl1, this.pipeSetEl2, this.pipeSetEl3, this.pipeSetEl4);
 		}

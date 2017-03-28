@@ -1,7 +1,7 @@
 .Player {
 	position: absolute;
-	width: 6em;
-	height: 5em;
+	width: 5em;
+	height: 4em;
 	transform: translateZ(0) translate(30em, 10em);
 	animation: none;
 	animation-fill-mode: forwards;
@@ -9,7 +9,6 @@
 
 .Player-model {
 	position: absolute;
-	/*transition: all 0.3s;*/
 	-webkit-animation-duration: 1s;
 	-webkit-animation-fill-mode: forwards;
 	width: 6em;
@@ -104,11 +103,14 @@
 	margin-left: -20em;
 	box-sizing: border-box;
 	text-align: center;
-	-webkit-transform: translateZ(0) translate(0, -40em);
+	background-image: url("../images/scorebackground.png");
+	background-size: 100% 100%;
+	-webkit-transform: translateZ(0) translate(0, -50em);
 	-webkit-transition: -webkit-transform 0.5s;
 }
 
 .Scoreboard h2 {
+	color: white;
 	font-size: 3em;
 	line-height: 0;
 }
